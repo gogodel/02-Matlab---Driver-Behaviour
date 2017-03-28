@@ -8,7 +8,7 @@ set(0,'defaulttextinterpreter','latex','defaultLineLineWidth',1.2,'defaultAxesFo
 %% DATA - Load files
 listOfFiles = {'01_Overtake_new.mat', '02_Detenerse_new.mat', ...
                '03_Detenerse_semaforo_new.mat', '04_Distancia_seguridad_new.mat'};
-% listOfFiles = {'04_Distancia_seguridad_new.mat'};           
+
 for idxMain=1:length(listOfFiles)
     load(listOfFiles{idxMain})           
 
@@ -87,5 +87,7 @@ for idxMain=1:length(listOfFiles)
     
     centers{idxMain} = allCenters(unique(identifiedAAs(Start:End))+1,:);
 end
+
+%TEST NEW COMMENTS - 
 
 
