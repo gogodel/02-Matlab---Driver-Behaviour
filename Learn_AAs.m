@@ -63,30 +63,7 @@ allCenters   = getCenters(myEvolve);
 maneuverRange = [maneuverRange maximo];
 %% RESULTS
 fprintf('\nNumber of identified Atomic Actions: %d', length(myEvolve.membershipList));
-fprintf('\nNumber of defined Atomic Actions: %d\n', length(uniqueAAs));
 
-error = definedAAs - identifiedAAs;
-
-for idxMain=1:length(listOfFiles)
-    Start = maneuverRange(idxMain);
-    End   = maneuverRange(idxMain+1); 
-    
-    figure, set(gcf,'Name',(listOfFiles{idxMain}))
-    subplot(311), plot(Start:End,definedAAs(Start:End), 'r'), hold on
-                  title('Predefined Atomic Actions')
-                  ylabel('$AA^i$')
-                  xlim([Start End]);
-    subplot(312), plot(Start:End,identifiedAAs(Start:End), 'g'), hold on
-                  title('Detected Atomic Actions (evolving)')
-                  ylabel('$AA^i$')
-                  xlim([Start End]);
-    subplot(313), plot(Start:End,error(Start:End)), ylim([-10 10]), hold on
-                  title('Diference between Predefined and Detected AAs')
-                  xlabel('$k$')
-                  xlim([Start End]);
-    
-    centers{idxMain} = allCenters(unique(identifiedAAs(Start:End))+1,:);
-end
 
 
 
