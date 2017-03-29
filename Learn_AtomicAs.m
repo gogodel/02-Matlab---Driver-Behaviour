@@ -65,7 +65,7 @@ maneuverRange = [maneuverRange maximo];
 fprintf('\nNumber of identified Atomic Actions: %d \n', length(AtomicAs.membershipList));
 
 %% SAVE Detected atomic actions
-save AAs.mat AtomicAs
+save xAAs.mat AtomicAs
 
 
 
