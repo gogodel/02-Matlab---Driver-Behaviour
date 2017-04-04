@@ -27,11 +27,11 @@ for idxMain=1:length(listOfFiles)
         X = [SpeedDiff_f, RPMDiff_f, SteeringWheel_f, GasPedal_f, BrakePedal_f, ClutchPedal_f, GearChange_f];
         
         % EVOLVING MECHANISM
-        AtomicAs           = EvolveRECCo();
-        AtomicAs.dimension = size(X,2);
-        AtomicAs.EvolveParam.n_add    = 0;      % Delay adding new clouds
-        AtomicAs.EvolveParam.gama_max = 0.83;   % EVOLVING PARAMETER (between 0.45 and 0.73)
-        AtomicAs.EvolveParam.c_max    = 100;    % MAXIMAL NUMBER OF CLOUDS
+        AAs           = EvolveRECCo();
+        AAs.dimension = size(X,2);
+        AAs.EvolveParam.n_add    = 0;      % Delay adding new clouds
+        AAs.EvolveParam.gama_max = 0.83;   % EVOLVING PARAMETER (between 0.45 and 0.73)
+        AAs.EvolveParam.c_max    = 100;    % MAXIMAL NUMBER OF CLOUDS
         
         startIdx = 1;                           % Starting index of the new maneuvr
         uniqueAAs = unique(AtomicAction1);
@@ -52,20 +52,24 @@ for idxMain=1:length(listOfFiles)
         currentData = X(kk,:);
 
         % EVOLVING MECHANISM
-        AtomicAs    = AtomicAs.addPoint(currentData,kk);
+        AAs    = AAs.addPoint(currentData,kk);
     end
-    length(AtomicAs.membershipList)
-    identifiedAAs = (AtomicAs.memberHistory'-1); % -1 because clouds starts
+    length(AAs.membershipList)
+    identifiedAAs = (AAs.memberHistory'-1); % -1 because clouds starts
                                                  % from value 1, but AAs
                                                  % start from 0
 end
-center_AAs    = getCenters(AtomicAs);
+center_AAs    = getCenters(AAs);
 maneuverRange = [maneuverRange maximo];
 %% RESULTS
-fprintf('\nNumber of identified Atomic Actions: %d \n', length(AtomicAs.membershipList));
+fprintf('\nNumber of identified Atomic Actions: %d \n', length(AAs.membershipList));
 
 %% SAVE Detected atomic actions
-save xAAs.mat AtomicAs
+save resultAAs.mat AAs identifiedAAs
 
+clearvars -except AAs identifiedAAs
+
+% RUN Learn_Tasks
+Learn_Tasks
 
 
